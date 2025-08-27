@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    image: personas:latest
+    container_name: springboot-app
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: root123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_FLYWAY_ENABLED: true
+      SPRING_FLYWAY_BASELINE_ON_MIGRATE: true
+    ports:
+      - "8081:8081"
+    build:
+      context: personas
+      dockerfile: Dockerfile
+
+volumes:
+  mysql-data:
