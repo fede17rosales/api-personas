@@ -55,14 +55,14 @@ docker-compose up --build
 ### Listar Personas
 
 ```
-curl --location 'localhost:8081/api/v1/people' \
+curl --location 'localhost:8081/api/v1/persona' \
 --header 'Cookie: JSESSIONID=EE7C5F1788FA669732F2545FFA687EE4'
 ```
 
 ### Agregar Personas
 
 ```
-curl --location 'localhost:8081/api/v1/people' \
+curl --location 'localhost:8081/api/v1/persona' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: JSESSIONID=EE7C5F1788FA669732F2545FFA687EE4' \
 --data-raw '{
@@ -74,7 +74,7 @@ curl --location 'localhost:8081/api/v1/people' \
 
 ### Actualizar Persona
 ```
-curl --location --request PUT 'localhost:8081/api/v1/people/1' \
+curl --location --request PUT 'localhost:8081/api/v1/persona/1' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: JSESSIONID=EE7C5F1788FA669732F2545FFA687EE4' \
 --data-raw '{
@@ -87,7 +87,7 @@ curl --location --request PUT 'localhost:8081/api/v1/people/1' \
 ### Eliminar Personas
 
 ```
-curl --location --request DELETE 'localhost:8081/api/v1/people/1' \
+curl --location --request DELETE 'localhost:8081/api/v1/persona/1' \
 --header 'Cookie: JSESSIONID=EE7C5F1788FA669732F2545FFA687EE4'
 ```
 

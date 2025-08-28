@@ -1,13 +1,15 @@
 package com.frosales.test.personas.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frosales.test.personas.dto.PersonRequest;
 import com.frosales.test.personas.dto.PersonResponse;
+import com.frosales.test.personas.security.NoSecurityConfig;
 import com.frosales.test.personas.service.PersonService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -20,10 +22,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PersonController.class)
+@Import(NoSecurityConfig.class)
 class PersonControllerTest {
 
     @Autowired
@@ -42,7 +45,7 @@ class PersonControllerTest {
 
         when(service.create(any(PersonRequest.class))).thenReturn(response);
 
-        mockMvc.perform(post("/api/v1/people")
+        mockMvc.perform(post("/api/v1/persona")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -57,7 +60,7 @@ class PersonControllerTest {
         when(service.search(eq("Federico"), eq("fede@test.com"), any(Pageable.class)))
                 .thenReturn(new PageImpl<>(List.of(response)));
 
-        mockMvc.perform(get("/api/v1/people")
+        mockMvc.perform(get("/api/v1/persona")
                         .param("name", "Federico")
                         .param("email", "fede@test.com"))
                 .andExpect(status().isOk())
@@ -73,7 +76,7 @@ class PersonControllerTest {
 
         when(service.update(eq(1L), any(PersonRequest.class))).thenReturn(response);
 
-        mockMvc.perform(put("/api/v1/people/{id}", 1L)
+        mockMvc.perform(put("/api/v1/persona/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -86,7 +89,7 @@ class PersonControllerTest {
     void deletePerson_ShouldReturnNoContent() throws Exception {
         doNothing().when(service).delete(1L);
 
-        mockMvc.perform(delete("/api/v1/people/{id}", 1L))
+        mockMvc.perform(delete("/api/v1/persona/{id}", 1L))
                 .andExpect(status().isNoContent());
     }
 }
