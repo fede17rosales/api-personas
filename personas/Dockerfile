@@ -1,7 +1,21 @@
-FROM eclipse-temurin:11-jdk-alpine AS build
+FROM maven:3.8.8-eclipse-temurin-11 AS build
 
-COPY target/personas-0.0.1-SNAPSHOT.jar app.jar
+
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+
+
+RUN mvn clean package -DskipTests
+
+
+FROM eclipse-temurin:11-jre-alpine
+
+
+WORKDIR /app
+COPY --from=build /app/target/personas-0.0.1-SNAPSHOT.jar app.jar
+
 
 EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
