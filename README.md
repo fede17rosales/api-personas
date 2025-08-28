@@ -5,7 +5,7 @@ Permite **crear, buscar, actualizar y eliminar registros de personas**.
 
 ---
 
-## 🚀 Tecnologías
+## ☕ Tecnologías
 - Java 11
 - Spring Boot 2.7.18
 - Maven
@@ -24,7 +24,7 @@ Permite **crear, buscar, actualizar y eliminar registros de personas**.
 
 ## ▶️ Ejecución
 
-### Localmente con Docker
+### 🐳 Localmente con Docker
 
 - Clonar el siguiente repositorio:
 
@@ -32,17 +32,16 @@ Permite **crear, buscar, actualizar y eliminar registros de personas**.
 git clone https://github.com/fede17rosales/api-personas.git
 ```
 
-- Pararse en la carpeta /personas
+- Pararse en la carpeta /api-personas/
 
 ```
-  personas/
+  api-personas/
   │
-  ├── docker-compose.yml     ← aqui en este nivel donde se encuentra el docker-compose.yml
-  ├── app/
+  ├── personas/
   │   ├── Dockerfile
-  │   ├── pom.xml
-  │   └── src/
-  └── ...
+      └── ...
+  ├── docker-compose.yml     ← aqui en este nivel donde se encuentra el docker-compose.yml
+  └── README.md
 ```
 
 - Y ejecutar desde terminal:
@@ -51,7 +50,7 @@ git clone https://github.com/fede17rosales/api-personas.git
 docker-compose up --build
 ```
 
-## 📑 Postman
+## 🚀 Postman
 
 ### Listar Personas
 
@@ -92,7 +91,7 @@ curl --location --request DELETE 'localhost:8081/api/v1/people/1' \
 --header 'Cookie: JSESSIONID=EE7C5F1788FA669732F2545FFA687EE4'
 ```
 
-##  Seguridad 
+## 🔑 Seguridad 
 
 Para consultar los endpoints necesitas de Authorization: **Basic Auth** e ingresas los siguientes datos:
 
@@ -100,7 +99,7 @@ Para consultar los endpoints necesitas de Authorization: **Basic Auth** e ingres
 - _Password_: **admin123**
 
 
-## 📑 Swagger
+## 📖 Swagger
 
 Una vez levantado el proyecto ingresar a:
 
